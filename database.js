@@ -1,23 +1,13 @@
-import { Sequelize } from "sequelize"
-export const sequelize = new Sequelize("Salita", "postgres", "santiago45",{
-    host: "localhost",
-    dialect:"postgres"
-})
+import "dotenv/config"
+import pkg from 'pg';
+const { Pool } = pkg;
 
-const Connection = async () =>{
-    try {
-        await sequelize.authenticate()
-        console.log("conexion establecida")
-    } catch (error) {
-        console.log("sin conexion, error: ", error)
-    }
-}
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  // ssl: {
+  //   rejectUnauthorized: false
+  // }
+});
 
-sequelize
-  .sync({ alter: true })
-  .then(() => {
-    console.log("Modelo sincronizado con la base de datos");
-  })
-  .catch((error) => {
-    console.error("Error al sincronizar el modelo:", error);
-  });
+export default pool;
+
