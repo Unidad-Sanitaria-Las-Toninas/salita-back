@@ -3,7 +3,7 @@ import pool from "../database.js";
 
 export const getTurns = async (req, res) => {
   try {
-    const { rows } = await pool.query("SELECT * FROM turns");
+    const { rows } = await pool.query("SELECT * FROM turnos");
     res.status(200).json(rows);
   } catch (error) {
     console.log(error);
